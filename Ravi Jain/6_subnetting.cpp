@@ -127,9 +127,11 @@ void print_last_host_id() {
 			cout << "x."<< temp2 <<".0.254\n";
 		}
 		if(temp==1) {
+			temp2=pow(2,16-no_subnets_bits())+i;
 			cout << "x.y." << temp2 <<".254\n";
 		}
 		if(temp==2) {
+			temp2=pow(2,24-no_subnets_bits())+i;
 			cout << "x.y.z."<< temp2 << ".254\n";
 		}
 	}
@@ -147,9 +149,11 @@ void print_broadcast_host_id() {
 			cout << "x."<< temp2 <<".0.255\n";
 		}
 		if(temp==1) {
+			temp2=pow(2,16-no_subnets_bits())+i;
 			cout << "x.y." << temp2 <<".255\n";
 		}
 		if(temp==2) {
+			temp2=pow(2,24-no_subnets_bits())+i;
 			cout << "x.y.z."<< temp2 << ".255\n";
 		}
 	}
