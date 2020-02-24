@@ -74,12 +74,14 @@ int no_subnets_bits() {
 
 void print_subnet_masks() {
 	int temp=int(check_best_class())-65;
+	int temp1=pow(2,8-no_subnets_bits());
 	for(int j=0; j<var.no_physical; j++) {
+
 		cout << "Subnet Mask " << j+1 << ":    ";
 		for(int i=0; i<=temp; i++) {
 			cout << "255.";
 		}
-		cout << j+1 << "\n";
+		cout << temp1*(j+1) << "\n";
 	}
 } 
 
@@ -101,16 +103,17 @@ int no_host_per_subnet() {
 
 void print_first_host_id() {
 	int temp=int(check_best_class())-65;
+	int temp1=pow(2,8-no_subnets_bits());
 	for(int i=0; i<var.no_physical; i++) {
 		cout << "First Host ID (" << i+1 << "):  "; 	
 		if(temp==0) {
-			cout << "x."<< i <<".0.1\n";
+			cout << "x."<< temp1*(i+1) <<".0.1\n";
 		}
 		if(temp==1) {
-			cout << "x.y." << i <<".1\n";
+			cout << "x.y." << temp1*(i+1)  <<".1\n";
 		}
 		if(temp==2) {
-			cout << "x.y.z."<< i << ".1\n";
+			cout << "x.y.z."<< temp1*(i+1)+1 << "\n";
 		}
 	}
 }
@@ -118,21 +121,21 @@ void print_first_host_id() {
 
 void print_last_host_id() {
 	int temp=int(check_best_class())-65;
-	int temp1=no_subnets_bits();
+	int temp1=0;
+	int temp2=pow(2,8-no_subnets_bits());
+	for(int i=0; i<8-no_subnets_bits();i++){
+		temp1+=pow(2,i);
+	}
 	for(int i=0; i<var.no_physical; i++) {
-		int temp2;
 		cout << "Last Host ID (" << i+1 << "):  "; 	
 		if(temp==0) {
-			temp2=pow(2,8-no_subnets_bits())+i;
-			cout << "x."<< temp2 <<".0.254\n";
+			cout << "x."<< temp2*(i+1)+temp1 <<".255.254\n";
 		}
 		if(temp==1) {
-			temp2=pow(2,16-no_subnets_bits())+i;
-			cout << "x.y." << temp2 <<".254\n";
+			cout << "x.y." << temp2*(i+1)+temp1  <<".254\n";
 		}
 		if(temp==2) {
-			temp2=pow(2,24-no_subnets_bits())+i;
-			cout << "x.y.z."<< temp2 << ".254\n";
+			cout << "x.y.z."<< temp2*(i+1)+temp1-1 << "\n";
 		}
 	}
 } 
@@ -140,21 +143,21 @@ void print_last_host_id() {
 
 void print_broadcast_host_id() {
 	int temp=int(check_best_class())-65;
-	int temp1=no_subnets_bits();
+	int temp1=0;
+	int temp2=pow(2,8-no_subnets_bits());
+	for(int i=0; i<8-no_subnets_bits();i++){
+		temp1+=pow(2,i);
+	}
 	for(int i=0; i<var.no_physical; i++) {
-		int temp2;
 		cout << "Broadcast Host ID (" << i+1 << "):  "; 	
 		if(temp==0) {
-			temp2=pow(2,8-no_subnets_bits())+i;
-			cout << "x."<< temp2 <<".0.255\n";
+			cout << "x."<< temp2*(i+1)+temp1 <<".255.255\n";
 		}
 		if(temp==1) {
-			temp2=pow(2,16-no_subnets_bits())+i;
-			cout << "x.y." << temp2 <<".255\n";
+			cout << "x.y." << temp2*(i+1)+temp1  <<".255\n";
 		}
 		if(temp==2) {
-			temp2=pow(2,24-no_subnets_bits())+i;
-			cout << "x.y.z."<< temp2 << ".255\n";
+			cout << "x.y.z."<< temp2*(i+1)+temp1 << "\n";
 		}
 	}
 } 
